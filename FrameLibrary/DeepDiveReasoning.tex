@@ -1,0 +1,236 @@
+
+
+% Slide 1: Introduction
+\begin{frame}{Introduction}
+    \begin{itemize}
+        \item \textbf{Reasoning with Mathematics:} Mathematics provides a universal framework for solving problems through structured logic and quantitative analysis. It’s about breaking down complex questions into manageable parts using numbers, symbols, and rules—think of it as a mental toolkit for precision.
+        \item \textbf{Relevance to Computer Science:} In CS, mathematical reasoning underpins everything: designing efficient algorithms, proving correctness, optimizing systems, and modeling data structures like stacks. It’s the engine driving computational thinking.
+        \item \textbf{Focus of This Talk:} We’ll explore stack permutations—a classic CS problem where we push numbers (0 to 9) in order and pop them to match a target sequence, like 4568793210. It’s a perfect sandbox to test reasoning skills.
+        \item \textbf{Preview:} We’ll dissect this using logical reasoning (step-by-step proofs) and touch on probabilistic reasoning (pattern-based guesses), showing how Grok 3 adapts to such challenges.
+    \end{itemize}
+\end{frame}
+
+% Slide 2: Mathematical Reasoning Foundations
+\begin{frame}{Mathematical Reasoning Foundations}
+    \begin{itemize}
+        \item \textbf{Definition:} Mathematical reasoning is the process of applying logical principles to numerical or symbolic problems, moving from premises to conclusions. It’s about clarity—every step must hold up under scrutiny.
+        \item \textbf{Basic Example:} Consider: “How many hours to earn \$120 at \$15 per hour?” Define the total cost \( C = 120 \), rate \( r = 15 \), and time \( t \). Then:
+        \[
+        C = r \cdot t \implies 120 = 15 \cdot t \implies t = \frac{120}{15} = 8 \text{ hours.}
+        \]
+        This is reasoning distilled: identify variables, set up an equation, solve systematically.
+        \item \textbf{Formal Notation:} Take a linear function \( f(x) = ax + b \). If \( a = 15 \) (rate), \( b = 0 \) (no base pay), then \( f(x) = 15x \) models earnings over \( x \) hours. Plug in \( f(t) = 120 \), and solve: \( 15t = 120 \), \( t = 8 \).
+        \item \textbf{Why It Matters:} This foundational skill scales to complex CS problems—like optimizing code or proving theorems—building intuition for patterns and deductions.
+    \end{itemize}
+\end{frame}
+
+% Slide 3: Discrete Math in CS
+\begin{frame}{Discrete Math in CS}
+    \begin{itemize}
+        \item \textbf{Core Concepts:} Discrete mathematics deals with countable, distinct objects—unlike continuous math (e.g., calculus). It’s the backbone of CS, covering:
+        \begin{itemize}
+            \item \textbf{Sets:} Collections like \( A = \{1, 2, 3\} \), \( B = \{2, 4\} \). Operations model data grouping.
+            \item \textbf{Logic:} Statements like \( P \land Q \) (P and Q) govern program conditions.
+            \item \textbf{Graphs:} \( G = (V, E) \), with vertices \( V \) and edges \( E \), represent networks or dependencies.
+        \end{itemize}
+        \item \textbf{Example—Set Union:} Compute \( A \cup B \):
+        \[
+        A \cup B = \{1, 2, 3\} \cup \{2, 4\} = \{1, 2, 3, 4\}.
+        \]
+        This operation might model merging user lists in a database—simple, yet powerful.
+        \item \textbf{CS Connection:} Stacks (our focus) rely on discrete sequences, logic dictates their behavior, and graphs could model push/pop dependencies. Discrete math is the language of computation.
+    \end{itemize}
+\end{frame}
+
+% Slide 4: Stacks and LIFO
+\begin{frame}{Stacks and LIFO}
+    \begin{itemize}
+        \item \textbf{Definition:} A stack is a data structure \( S = [s_1, s_2, ..., s_n] \), where elements are added and removed from one end—the top. It’s like a stack of plates: you add to the top, take from the top.
+        \item \textbf{Operations:}
+        \begin{itemize}
+            \item \textbf{Push:} Add \( x \) to the top: \( S \leftarrow S \cup \{x\} \), so \( x \) becomes \( s_{n+1} \). E.g., \( S = [1, 2] \), push 3, \( S = [3, 2, 1] \).
+            \item \textbf{Pop:} Remove and return the top element \( s_n \). E.g., \( S = [3, 2, 1] \), pop returns 3, \( S = [2, 1] \).
+        \end{itemize}
+        \item \textbf{Math:} The top is:
+        \[
+        \text{top}(S) = s_n,
+        \]
+        reflecting the Last-In, First-Out (LIFO) principle—last pushed, first popped.
+        \item \textbf{Relevance:} Stacks model function calls, undo operations, and permutations (our case), making them a CS staple.
+    \end{itemize}
+\end{frame}
+
+% Slide 5: Stack Permutations Defined
+\begin{frame}{Stack Permutations Defined}
+    \begin{itemize}
+        \item \textbf{Problem Setup:} Given an input sequence \( I = [0, 1, 2, ..., 9] \) (ascending order), we push these onto a stack and pop them to produce an output \( O = [o_1, o_2, ..., o_{10}] \).
+        \item \textbf{Goal:} \( O \) must be a permutation of \( I \) (all 10 numbers, used once), achievable via valid stack operations—push in order, pop anytime, print on pop.
+        \item \textbf{Formal Condition:}
+        \[
+        O \text{ is a permutation of } I \text{ if there exists a sequence of pushes and pops s.t. popping yields } o_1, o_2, ..., o_{10}.
+        \]
+        \item \textbf{Example:} \( O = 4568793210 \). We’ll test if pushing 0-9 and popping strategically matches this. It’s a puzzle: can LIFO rearrange 0-9 into this order?
+    \end{itemize}
+\end{frame}
+
+% Slide 6: Case Study: 4568793210 Simulation
+\begin{frame}{Case Study: 4568793210 Simulation}
+    \begin{itemize}
+        \item \textbf{Objective:} Verify if \( O = 4568793210 \) is stack-sortable by simulating push/pop operations on \( I = [0, 1, ..., 9] \).
+        \item \textbf{Detailed Steps:}
+        \begin{itemize}
+            \item Push 0-4: \( S = [4, 3, 2, 1, 0] \), pop 4 (output: 4).
+            \item Push 5: \( S = [5, 3, 2, 1, 0] \), pop 5 (output: 45).
+            \item Push 6: \( S = [6, 3, 2, 1, 0] \), pop 6 (output: 456).
+            \item Push 7-8: \( S = [8, 7, 3, 2, 1, 0] \), pop 8, then 7 (output: 45687).
+            \item Push 9: \( S = [9, 3, 2, 1, 0] \), pop 9, then 3, 2, 1, 0 (output: 4568793210).
+        \end{itemize}
+        \item \textbf{Result:} The sequence matches exactly after 10 pushes and 10 pops, respecting LIFO—each pop was the top element at that moment.
+    \end{itemize}
+\end{frame}
+
+% Slide 7: Theoretical Analysis (Part 1)
+\begin{frame}{Theoretical Analysis (Part 1)}
+    \begin{itemize}
+        \item \textbf{Stack-Sortable Condition:} A sequence is stack-sortable if it avoids a “231 pattern” in relative order—where \( a < c < b \), but \( b \) appears before \( c \), and \( a \) after, making \( a \) unreachable behind \( c \).
+        \item \textbf{Math Example:} In 231, push 1, 2, 3 (\( S = [3, 2, 1] \)), pop 2 (\( S = [3, 1] \)), need 3 but 1 is on top—impossible.
+        \item \textbf{Check 4568793210:}
+        \begin{itemize}
+            \item Positions: 4, 5, 6, 8, 7, 9, 3, 2, 1, 0 (index in \( I \)).
+            \item Test 8, 7: \( 8 > 7 \), 7 after 8—stack had \( [8, 7, ...] \), pop 8, 7 is top, valid.
+            \item No 231: E.g., 4, 6, 5 (4 < 6 < 5)? No, order is 4, 5, 6. No violations found.
+        \end{itemize}
+        \item \textbf{Insight:} Absence of 231 suggests sortability, but we need more.
+    \end{itemize}
+\end{frame}
+
+% Slide 8: Theoretical Analysis (Part 2)
+\begin{frame}{Theoretical Analysis (Part 2)}
+    \begin{itemize}
+        \item \textbf{Accessibility Condition:} At each step \( i \), the next pop \( o_i \) must be either the top of the stack or the next number to push:
+        \[
+        o_i = \text{top}(S) \text{ or } o_i = I[k] \text{ (next in } I\text{)}.
+        \]
+        \item \textbf{Apply to 4568793210:}
+        \begin{itemize}
+            \item \( o_1 = 4 \): Push 0-4, \( S = [4, 3, 2, 1, 0] \), \( \text{top} = 4 \), pop 4.
+            \item \( o_4 = 8 \): Push 7-8, \( S = [8, 7, 3, 2, 1, 0] \), \( \text{top} = 8 \), pop 8.
+            \item \( o_7 = 3 \): After pops, \( S = [3, 2, 1, 0] \), \( \text{top} = 3 \), pop 3.
+        \end{itemize}
+        \item \textbf{Validation:} Every \( o_i \) was accessible—either freshly pushed or left at the top by prior pops. Combined with no 231, this proves sortability.
+    \end{itemize}
+\end{frame}
+
+% Slide 9: Complexity of Stack Sorting
+\begin{frame}{Complexity of Stack Sorting}
+    \begin{itemize}
+        \item \textbf{Simulation Analysis:} For \( n \) elements, we perform at most \( n \) pushes (one per number) and \( n \) pops (one per output digit).
+        \item \textbf{Time Complexity:}
+        \[
+        T(n) = n_{\text{push}} + n_{\text{pop}} \leq n + n = 2n \implies O(n).
+        \]
+        Each operation (push/pop) is \( O(1) \) in a stack, so total time is linear.
+        \item \textbf{Example:} For 4568793210, \( n = 10 \):
+        \begin{itemize}
+            \item 10 pushes (0-9), 10 pops (4, 5, ..., 0).
+            \item \( T(10) \approx 20 \) operations, confirming \( O(n) \).
+        \end{itemize}
+        \item \textbf{Significance:} Efficient verification makes stack sorting practical for larger inputs, a key CS concern.
+    \end{itemize}
+\end{frame}
+
+% Slide 10: Probabilistic Reasoning in LLMs
+\begin{frame}{Probabilistic Reasoning in LLMs}
+    \begin{itemize}
+        \item \textbf{How LLMs Operate:} Language models like Grok 3 predict the next token \( w_t \) based on prior context \( w_{1:t-1} \), using a softmax probability:
+        \[
+        P(w_t | w_{1:t-1}) = \frac{e^{s_t}}{\sum_j e^{s_j}},
+        \]
+        where \( s_t \) is a score for \( w_t \). It’s statistical, not logical.
+        \item \textbf{Example:} Asked “Is 4568793210 valid?” I might guess: “It’s 10 digits, uses 0-9, likely valid,” based on pattern recognition from training data.
+        \item \textbf{Limitation:} No proof—just a hunch. I could hallucinate “invalid” if skewed examples dominate. Here, I avoided this, opting for logic.
+    \end{itemize}
+\end{frame}
+
+% Slide 11: Logical Reasoning Formalized
+\begin{frame}{Logical Reasoning Formalized}
+    \begin{itemize}
+        \item \textbf{Deductive Form:} Logic follows: “If all \( x \) satisfy \( P(x) \rightarrow Q(x) \), and \( P(a) \) holds, then \( Q(a) \) holds.”
+        \[
+        \forall x (P(x) \rightarrow Q(x)), \quad P(a) \vdash Q(a).
+        \]
+        It’s certain, not probable.
+        \item \textbf{Stack Example:}
+        \begin{itemize}
+            \item \( P(x) \): \( x \) follows LIFO rules (push/pop correctly).
+            \item \( Q(x) \): \( x \) is stack-sortable.
+            \item For 4568793210: \( P \) (LIFO holds via simulation) \(\rightarrow\) \( Q \) (sortable).
+        \end{itemize}
+        \item \textbf{Power:} Deduction guarantees correctness—vital for CS proofs like this.
+    \end{itemize}
+\end{frame}
+
+% Slide 12: Chain-of-Thought Reasoning in Action
+\begin{frame}{Chain-of-Thought Reasoning in Action}
+    \begin{itemize}
+        \item \textbf{Definition:} CoT breaks problems into explicit, sequential steps, mimicking human reasoning. It’s about showing the journey, not just the destination.
+        \item \textbf{Math Representation:} Stack simulation as transitions:
+        \[
+        S_t \xrightarrow{\text{push/pop}} S_{t+1}, \quad \text{e.g., } [4, 3, 2, 1, 0] \xrightarrow{\text{pop 4}} [3, 2, 1, 0].
+        \]
+        Each \( S_t \) is a state, each move a reasoned choice.
+        \item \textbf{Example 4568793210:} Push 0-4, pop 4 (\( S = [3, 2, 1, 0] \)); push 5, pop 5; up to push 9, pop 9-0. Each step asks: “Does this get me closer?”
+        \item \textbf{Used Here:} CoT ensured no leaps—every pop was justified, boosting accuracy.
+    \end{itemize}
+\end{frame}
+
+% Slide 13: Internally Synthesized Prompts in CoT
+\begin{frame}{Internally Synthesized Prompts in CoT}
+    \begin{itemize}
+        \item \textbf{Definition:} These are implicit, self-generated questions guiding CoT—like “What’s next?” or “Is this valid?” They’re not user-provided but emerge to structure reasoning.
+        \item \textbf{Math:} Sub-goals as:
+        \[
+        S_t \rightarrow o_i, \quad \text{e.g., } [4, 3, 2, 1, 0] \rightarrow 4 \text{ (pop 4)}.
+        \]
+        Each transition reflects a prompt like “Can I pop \( o_i \) now?”
+        \item \textbf{Example 4 5 6 8 7 9 3 2 1 0:}
+        \begin{itemize}
+            \item “What’s first?” $\rightarrow$ Push 0-4, pop 4.
+            \item “Next is 5?” $\rightarrow$ Push 5, pop 5.
+            \item “Can I get 3?” $\rightarrow$ After pops, \( S = [3, 2, 1, 0] \), pop 3.
+        \end{itemize}
+        \item \textbf{Role:} These prompts drove the CoT, keeping me systematic without guessing.
+    \end{itemize}
+\end{frame}
+
+% Slide 14: Comparing Reasoning Styles
+\begin{frame}{Comparing Reasoning Styles}
+    \begin{itemize}
+        \item \textbf{Deductive Reasoning:} From rules to facts:
+        \[
+        A \rightarrow B, \quad A \text{ true} \Rightarrow B \text{ true}.
+        \]
+        E.g., “LIFO holds \(\rightarrow\) 4 5 6 8 7 9 3 2 1 0 is valid.” It’s certain, ideal for proofs.
+        \item \textbf{Probabilistic Reasoning:} From patterns to likelihood:
+        \[
+        P(B|A) \approx 0.9, \quad \text{may be false}.
+        \]
+        E.g., “Sequence looks valid—9 0% chance.” It’s fast, fallible, great for language.
+        \item \textbf{When to Use:} Deductive for CS/math precision; probabilistic for creative or ambiguous tasks.
+    \end{itemize}
+\end{frame}
+
+% Slide 15: Conclusion
+\begin{frame}{Conclusion}
+    \begin{itemize}
+        \item \textbf{Summary:}
+        \begin{itemize}
+            \item \textbf{Logic + CoT + Prompts:} Combined for precise stack solutions—simulation and theory proved 4 5 6 8 7 9 3 2 1 0 valid.
+            \item \textbf{Probability:} Offers flexibility for less rigid tasks, but sidelined here for rigor.
+        \end{itemize}
+        \item \textbf{Most of AI chatbot's Approach:}  adapt reasoning to the task—logical for maths problems, probabilistic for chat
+        \item \textbf{Future Directions:} Apply this to more math/CS challenges—graph algorithms, optimization, or beyond.
+    \end{itemize}
+\end{frame}
+
+\end{document}

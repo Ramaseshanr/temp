@@ -1,0 +1,176 @@
+\begin{frame}[allowframebreaks]{Introduction}
+\begin{itemize}
+    \item 	LLMs have transformed artificial intelligence, extending beyond traditional NLP.
+	\item They learn knowledge and reasoning from data, unlike formal logic systems that struggled with real-world complexity.
+	\item LLMs’ ability to acquire knowledge opens up a new avenue in reasoning.
+	\item They may lead to verifiability in many tasks, such as legal analysis, scientific discovery, $\cdots$.
+	\item Traditional reasoning in AI involves applying structured rules to derive conclusions, while LLM-based reasoning integrates natural language understanding and enables multi-step deduction and abstraction.
+	\item Algorithmic reasoning may lead to multi-step thought processes, which may enhance the clarity and trustworthiness of LLM outcomes.
+    \framebreak
+    \item Logical, common-sense, and mathematical reasoning are crucial for AI systems
+    \item Provide analytical skills. Formal and symbolic logic-based reasoning will be distinguished from heuristic approaches like Chain-of-Thought prompting.
+    \item The attention mechanism may facilitate coherent thought generation.
+    \item Empirical evidence suggests a correlation between LLM scale and reasoning abilities.
+    \item Parameters and training data (AKA scale) is critical for unlocking reasoning potential. LLM Performance is directly proportional to scale (demonstrated - ELMO$ \rightarrow$ transformer)
+    \item Deep dive into into the theoretical framework is needed to improve the model design, training, and prompting strategies.
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Deductive Reasoning (Top-Down Logic)}
+
+\textbf{What it is:} Starting with a general rule and applying it to a specific situation to reach a certain conclusion.
+
+\bigskip % Add some vertical space
+
+\begin{block}{Simple Example}
+  \begin{itemize}
+    \item \textbf{General Rule:} All dogs bark.
+    \item \textbf{Specific Case:} Fido is a dog.
+    \item \textbf{Deductive Conclusion:} Therefore, Fido barks.
+  \end{itemize}
+\end{block}
+
+\bigskip
+
+Generally good at simple deductions, but struggle with complex, multi-step logic or strict coherence in long arguments.
+\end{frame}
+
+% Frame 2: Inductive Reasoning
+\begin{frame}[fragile]
+\frametitle{Inductive Reasoning (Bottom-Up Logic)}
+
+Forming a general rule or conclusion from specific examples or observations. This conclusion is likely, but not necessarily true.
+
+\bigskip
+
+\begin{block}{Simple Example}
+  \begin{itemize}
+    \item \textbf{Observation 1:} I am a saggitarian. I spill coffee \verb|;)|
+    \item \textbf{Observation 2:} My uncle is a saggitarian and he spills coffee
+    \item \textbf{Inductive Conclusion:} Therefore, many saggitarians probably spill coffee.
+  \end{itemize}
+\end{block}
+
+\bigskip
+
+LLMs excel at generalizing from observed patterns but might not invent entirely novel hypotheses far beyond their training data.
+\end{frame}
+
+% Frame 3: Abductive Reasoning
+\begin{frame}
+\frametitle{Abductive Reasoning (Making the Best Guess)}
+
+Observing an outcome and guessing the most likely cause based on incomplete information, like a detective making an educated guess.
+
+\bigskip
+
+\begin{block}{Simple Example}
+  \begin{itemize}
+    \item \textbf{Observation:} The street outside is wet.
+    \item \textbf{Possible Explanations:} It rained, a street cleaner went by, someone spilled water.
+    \item \textbf{Abductive Conclusion (Best Guess):} The most likely explanation is that it rained (based on common occurrences).
+  \end{itemize}
+\end{block}
+
+\bigskip
+
+ Suggest plausible explanations based on data correlations, but lack true understanding of causality and context, limiting reliability in complex situations.
+\end{frame}
+
+% Frame 4: Analogical Reasoning
+\begin{frame}
+\frametitle{Analogical Reasoning (Finding Similarities)}
+
+Comparing similar things or situations to learn, infer, or explain something about one of them.
+
+\bigskip
+
+\begin{block}{Simple Example}
+  Just like a \texttt{seed} needs soil and water to grow into a \textit{plant}, a \textit{child} needs care and education to grow into a capable \textit{adult}.
+\end{block}
+
+\bigskip
+
+Capable of generating basic analogies based on linguistic similarity, they may miss deeper, conceptual parallels due to a lack of real-world understanding of the underlying relationships.
+\end{frame}
+
+
+\begin{frame}{Common Sense  Reasoning}
+	LLMs demonstrate common-sense knowledge through their pretraining data and techniques like Chain-of-Thought prompting.
+	External knowledge bases can enhance LLMs’ performance on common-sense tasks by providing context.
+	LLM performance on common-sense tasks is assessed using benchmarks like CommonsenseQA, StrategyQA, HellaSWAG, PIQA, Social IQA, and OpenBookQA.
+	LLMs struggle with common-sense reasoning, showing less improvement than logical or mathematical tasks, especially in smaller models.
+	LLMs’ knowledge for common-sense answers is often unreliable, potentially incorrect, and misleading.
+	LLMs exhibit significant performance variations based on cultural context, highlighting potential biases in their understanding of the world.
+
+\end{frame}
+
+\begin{frame}{Mathematical Reasoning}
+	\begin{itemize}
+    \item Mathematical thought is a critical capability for artificial intelligence.
+\item These tasks include algebraic manipulation, solving numerical problems, and even contributing to theorem proving.
+	\item Techniques like Chain-of-Thought prompting have been effective in improving the performance of LLMs on mathematical problems.
+	\item GSM8K contains grade-school level math word problems, while MATH includes problems from high school mathematics competitions.
+	\item Other benchmarks like JEEBench and MATH 401 further test the capabilities of these models on more advanced mathematical problems.
+	\item LLMs can be easily distracted by irrelevant information in mathematical word problems, indicating a lack of ability to discern essential details from extraneous ones.
+    \end{itemize}
+
+
+\end{frame}
+
+\begin{frame}[allowframebreaks]{Chain-of-thought}
+\begin{itemize}
+	\item Chain-of-Thought (CoT) prompting is a framework for step-by-step problem-solving in LLMs.
+	\item It involves providing examples within the prompt that demonstrate the process of reasoning through intermediate steps.
+	\item The LLM is encouraged to generate a similar sequence of thought steps when faced with new problems.
+	\item CoT allows models to break down complex problems into smaller, more manageable parts.
+	\item Standard CoT prompting has limitations, such as not always guaranteeing correct reasoning paths and being sensitive to specific examples chosen for the prompt.
+
+	\item Recursion of Thought explores divide-and-conquer strategies for multi-context reasoning.
+	\item Meta Chain-of-Thought aims to teach LLMs the general strategy of how to think by providing examples of effective reasoning processes.
+	\item Multi-agent strategies combine CoT with the idea of using multiple specialized agents that collaborate to solve complex problems.
+
+	\item CoT’s effectiveness depends on the quality of prompts.
+	\item Research explores sophisticated variations to overcome limitations and improve reasoning capabilities.
+	\item CoT works by providing a template for thought, highlighting the model’s ability to learn and apply patterns.
+	\item Decomposition of problems into smaller steps reduces complexity and makes it easier for the LLM to arrive at a correct answer.
+	\item CoT has spurred research into prompt engineering as a method for enhancing LLM capabilities without retraining or fine-tuning.
+	\item Self-Consistency Decoding is a strategy to improve LLM reasoning reliability by generating multiple diverse reasoning pathways and aggregating results to select the most consistent answer.
+	\item Self-consistency involves sampling a set of different reasoning paths from the LLM’s decoder.
+	\item The final answer is chosen by taking a majority vote across the set of answers produced by diverse reasoning paths.
+	\item This approach is based on the idea that for complex problems, there are often multiple valid ways to arrive at the correct solution.
+	\item If several different reasoning paths converge to the same answer, there is a higher likelihood that the answer is indeed correct.
+	\item Self-consistency improves LLM reasoning accuracy and robustness.
+	\item It samples multiple reasoning paths to mitigate greedy decoding limitations.
+	\item Self-consistency reduces reliance on single sampled generation.
+	\item It is an unsupervised method that can be applied directly to pre-trained LLMs.
+	\item Self-consistency enhances the reliability of LLM reasoning.
+	\item It leverages the idea that multiple independent reasoning processes increase confidence.
+	\item Self-consistency builds upon Chain-of-Thought by ensuring consistency across multiple chains.
+	\item It reduces the impact of flawed reasoning steps by sampling multiple paths and using a voting mechanism.
+	\item Self-consistency offers a valuable approach to improve existing LLMs without additional training data or resources.
+	\item Integration of External Knowledge:
+	\item Retrieval-Augmented Generation (RAG) is a framework that enhances the reasoning capabilities of LLMs.
+	\item RAG provides LLMs with access to relevant information from external knowledge sources.
+	\item The RAG process involves retrieving pertinent knowledge from an external database and using it to augment the LLM’s response generation.
+	\item RAG can address limitations of LLMs, such as hallucination, outdated information, and lack of specialized knowledge.
+	\item The typical RAG workflow consists of indexing the external knowledge source, retrieving relevant information, and generating a response that incorporates the retrieved knowledge.
+	\item Advanced RAG techniques focus on optimizing each stage of the workflow, such as fine-tuning knowledge segmentation during indexing, enhancing retrieval through query optimization, and improving the processing and utilization of retrieved information by the LLM.
+	\item Knowledge Graphs (KGs) are structured knowledge repositories that store factual information as entities and their relationships.
+	\item Integrating KGs with LLMs can enhance their reasoning abilities by providing a structured source of external knowledge.
+	\item Various approaches have been explored for this integration, including methods that fuse representations learned from both the LLM and the KG.
+	\item Frameworks where the LLM acts as an agent that can interact with and query the KG to perform reasoning have also been explored.
+	\item GuideKG is a method that uses LLMs to generate knowledge-based explanations to improve the common-sense reasoning of smaller language models.
+	\item KG-GPT is a framework designed to leverage the capabilities of LLMs for complex reasoning tasks that involve Knowledge Graphs.
+	\item Effective integration of external knowledge requires careful consideration of how to elicit, filter, and seamlessly incorporate this information into the LLM’s thought process.
+	\item Retrieval techniques aim to identify the most relevant documents, passages, or structured data based on the input query.
+	\item Once retrieved, this knowledge can be integrated into the LLM’s prompt in various ways, such as by directly inserting relevant text or by using embeddings to represent the knowledge in a continuous vector space that the LLM can then process.
+	\item RankRAG is a novel framework that instruction-tunes a single LLM to perform both the task of ranking retrieved contexts based on their relevance and generating an answer using these contexts.
+	\item LINKED proposes a process of eliciting knowledge from LLMs, filtering it for accuracy and relevance, and then integrating it to improve their common-sense reasoning abilities.
+	\item The integration of external knowledge through Retrieval-Augmented Generation and the utilization of Knowledge Graphs can address the limitations of LLMs’ internal knowledge.
+	\item These techniques can enhance LLMs’ reasoning capabilities in tasks that heavily rely on factual information.
+	\item By providing LLMs with access to up-to-date and domain-specific knowledge, these techniques can address issues of hallucination and outdated information.
+	\item Grounding the LLM’s reasoning in verifiable external sources is crucial for increasing confidence in its outputs, especially in sensitive or critical domains.
+\end{itemize}
+\end{frame}

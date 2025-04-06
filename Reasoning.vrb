@@ -1,0 +1,17 @@
+\frametitle{Inductive Reasoning (Bottom-Up Logic)}
+
+Forming a general rule or conclusion from specific examples or observations. This conclusion is likely, but not necessarily true.
+
+\bigskip
+
+\begin{block}{Simple Example}
+  \begin{itemize}
+    \item \textbf{Observation 1:} I am a saggitarian. I spill coffee \verb|;)|
+    \item \textbf{Observation 2:} My uncle is a saggitarian and he spills coffee
+    \item \textbf{Inductive Conclusion:} Therefore, many saggitarians probably spill coffee.
+  \end{itemize}
+\end{block}
+
+\bigskip
+
+LLMs excel at generalizing from observed patterns but might not invent entirely novel hypotheses far beyond their training data.
